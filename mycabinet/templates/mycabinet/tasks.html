@@ -1,0 +1,29 @@
+{% extends 'mycabinet/base.html' %}
+{% block content %}
+    <h1>Мої справи</h1>
+    
+    <form method="post" class="inline-form">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add">
+        <input type="text" name="task" placeholder="Нова справа..." required>
+        <button type="submit">Додати</button>
+    </form>
+
+    <p class="total-count">Загальна кількість справ: <strong>{{ tasks|length }}</strong></p>
+
+    <ul class="task-list">
+        {% for task in tasks %}
+            <li>
+                <span>{{ task }}</span>
+                <form method="post" class="delete-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="remove">
+                    <input type="hidden" name="index" value="{{ forloop.counter0 }}">
+                    <button type="submit" class="btn-delete" title="Видалити">&times;</button>
+                </form>
+            </li>
+        {% empty %}
+            <p class="empty-msg">У вас поки немає справ.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

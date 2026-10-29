@@ -1,0 +1,20 @@
+{% extends 'mycabinet/base.html' %}
+{% block content %}
+    <h1>Головна сторінка</h1>
+    
+    {% if user_name %}
+        <h2 class="greeting">Вітаємо, {{ user_name }}!</h2>
+    {% else %}
+        <h2 class="greeting">Вітаємо, Гість!</h2>
+        <form method="post" class="inline-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="save_name">
+            <input type="text" name="name" placeholder="Введіть ваше ім'я" required>
+            <button type="submit">Зберегти ім'я</button>
+        </form>
+    {% endif %}
+
+    <div class="info-card">
+        <p><strong>Час останнього візиту:</strong> {{ last_visit }}</p>
+    </div>
+{% endblock %}

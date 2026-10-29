@@ -1,0 +1,42 @@
+{% extends 'mycabinet/base.html' %}
+{% block content %}
+    <h1>Налаштування</h1>
+
+    <div class="settings-section">
+        <h3>Профіль</h3>
+        <p>Поточне ім'я: <strong>{{ user_name|default:"Не вказано" }}</strong></p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="remove_name">
+            <button type="submit" class="btn-danger">Видалити ім'я</button>
+        </form>
+    </div>
+
+    <div class="settings-section">
+        <h3>Тема оформлення</h3>
+        <p>Поточна тема: <strong>{% if current_theme == 'dark' %}Темна{% else %}Світла{% endif %}</strong></p>
+        <form method="post" class="theme-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="change_theme">
+            <select name="theme">
+                <option value="light" {% if current_theme == 'light' %}selected{% endif %}>Світла</option>
+                <option value="dark" {% if current_theme == 'dark' %}selected{% endif %}>Темна</option>
+            </select>
+            <button type="submit">Змінити тему</button>
+        </form>
+        <form method="post" style="margin-top: 10px;">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="clear_theme">
+            <button type="submit" class="btn-secondary">Скинути тему на стандартну</button>
+        </form>
+    </div>
+
+    <div class="settings-section">
+        <h3>Дані</h3>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="clear_tasks">
+            <button type="submit" class="btn-danger">Очистити список справ</button>
+        </form>
+    </div>
+{% endblock %}

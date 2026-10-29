@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="uk" class="{% if current_theme == 'dark' %}dark-mode{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <title>Мій Кабінет</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'mycabinet/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'profile' %}">Головна</a>
+        <a href="{% url 'tasks' %}">Мої справи</a>
+        <a href="{% url 'settings' %}">Налаштування</a>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
